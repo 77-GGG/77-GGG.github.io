@@ -67,30 +67,23 @@ python3 -m http.server 8765
 
 ## 部署到 GitHub Pages
 
-目标地址是 **<https://guoqi06.github.io>**。用户主页站有一条硬规定：地址前缀必须就是账号名，
-仓库也必须叫 `<账号名>.github.io`。所以账号得是 `guoqi06`，仓库得叫 `guoqi06.github.io`。
+站点已经在线上：**<https://77-ggg.github.io>**，仓库是
+<https://github.com/77-GGG/77-GGG.github.io>（用户站，仓库名必须是 `<账号名>.github.io`，
+地址前缀由账号名决定，没得选）。
 
-现在的 GitHub 账号是 `77-GGG`（<https://github.com/77-GGG>），需要先在
-**Settings → Account → Change username** 里改成 `guoqi06`（`guoqi06` 目前没被占用，已确认）。
-改名后旧地址 `<https://github.com/77-GGG>` 会自动重定向到新地址，不会丢链接；
-改完把 `index.html` 里 `.links` 的 GitHub 链接也换成 `https://github.com/guoqi06`。
+原来那个 Jekyll 站点已被本目录的内容覆盖（`main` 分支强制推送），替换前的完整备份在
+`.backup/`（`old-site.bundle` 是 git 历史，`old-site-files.tar.gz` 是文件），确认不要了可以直接删。
 
-然后：
+日常更新只有三步：
 
-1. 新建**公开**仓库，名字必须是 `guoqi06.github.io`（不要勾选 README，避免冲突）。
-2. 推代码（本目录已经 `git init` 并提交过，直接加 remote 推）：
+```bash
+cd /Users/qiguo/cvPages
+git add -A && git commit -m "update"
+git push
+```
 
-   ```bash
-   cd /Users/qiguo/cvPages
-   git remote add origin git@github.com:guoqi06/guoqi06.github.io.git
-   git push -u origin main
-   ```
-
-3. 仓库 → Settings → Pages → Source 选 **Deploy from a branch**，分支 `main`、目录 `/ (root)`，保存。
-4. 等 1–2 分钟，访问 <https://guoqi06.github.io>。之后每次 `git push` 都会自动重新发布。
-
-如果宁可不改账号名，那就只能用项目仓库，地址会变成 `https://77-ggg.github.io/cvPages/`，
-不是你要的 `guoqi06.github.io`。
+推送后 1 分钟左右自动重新发布（Pages → Deploy from a branch，`main` / `(root)`）。
+本目录带一个空的 `.nojekyll` 文件，用来跳过 Jekyll 处理、按原样发布静态文件。
 
 ### 可选：绑定自己的域名
 
