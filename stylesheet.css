@@ -1,0 +1,307 @@
+/* ------------------------------------------------------------------
+   Minimal academic homepage — plain CSS, no build step.
+   Palette: near-black ink on warm off-white, one muted blue accent.
+   If you want to restyle, almost everything lives in :root.
+------------------------------------------------------------------ */
+
+:root {
+  --ink: #1c1c1a;
+  --body: #33322f;
+  --muted: #77746e;
+  --rule: #e4e2dd;
+  --accent: #1a5b8f;
+  --bg: #fdfcfa;
+
+  --measure: 44rem;   /* text column width */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #eceae6;
+    --body: #c9c6c1;
+    --muted: #918e88;
+    --rule: #2c2b28;
+    --accent: #7fb4dd;
+    --bg: #151514;
+  }
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 5.5rem 1.5rem 7rem;
+  background: var(--bg);
+  color: var(--body);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+               "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+main {
+  max-width: var(--measure);
+  margin: 0 auto;
+}
+
+::selection {
+  background: rgba(26, 91, 143, 0.14);
+}
+
+/* ---------- links ---------- */
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+
+a:hover { border-bottom-color: currentColor; }
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+
+/* ---------- header ---------- */
+
+h1 {
+  margin: 0 0 0.4rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+/* 中文名：字身框满格，同字号下看着会比拉丁字母大一号，
+   所以收到 0.94em，视觉上才和英文名等大；颜色字重跟随 h1。 */
+
+.name-zh {
+  font-size: 0.94em;
+  font-weight: inherit;
+  letter-spacing: 0;
+  color: inherit;
+  vertical-align: baseline;
+}
+
+/* 两个名字之间的斜杠：降为常规字重和次要灰，起分隔作用但不抢注意力 */
+
+.name-sep {
+  margin: 0 0.34em;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.subtitle {
+  margin: 0 0 1.15rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+/* name/subtitle on the left, portrait on the right */
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.header-text {
+  min-width: 0;
+}
+
+.portrait {
+  flex: 0 0 auto;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  background: var(--rule);
+  filter: saturate(0.92);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.15rem;
+  font-size: 0.92rem;
+  padding-bottom: 1.7rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ---------- sections ---------- */
+
+section { margin-top: 2.9rem; }
+
+h2 {
+  margin: 0 0 1.2rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+p { margin: 0 0 0.9rem; }
+
+.muted { color: var(--muted); font-size: 0.95rem; }
+
+em { font-style: italic; }
+
+/* ---------- news ---------- */
+
+.news {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.news li {
+  display: grid;
+  grid-template-columns: 5.6rem 1fr;
+  gap: 0.2rem 1rem;
+  padding: 0.42rem 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.95rem;
+}
+
+.news li:last-child { border-bottom: 0; }
+
+.news time {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.88rem;
+  padding-top: 0.1rem;
+}
+
+/* ---------- publications ---------- */
+
+.pub { margin: 0 0 1.35rem; }
+.pub:last-child { margin-bottom: 0; }
+
+.pub p { margin: 0; }
+
+.pub .title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.pub .authors {
+  font-size: 0.94rem;
+  margin-top: 0.12rem;
+}
+
+.pub .me {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.pub .venue {
+  font-size: 0.92rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 0.1rem;
+}
+
+.pub .links {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.86rem;
+  padding: 0;
+  border: 0;
+}
+
+.pub .links a { margin-right: 0.85rem; }
+
+/* ---------- education / experience ---------- */
+
+.entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 0.1rem 0 0.9rem;
+}
+
+.entry-body p { margin: 0; }
+
+.entry-title {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.entry-org {
+  font-size: 0.93rem;
+  color: var(--muted);
+}
+
+.entry-date {
+  margin: 0;
+  flex: 0 0 auto;
+  font-size: 0.88rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------- footer ---------- */
+
+footer {
+  margin-top: 3.6rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--rule);
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 34rem) {
+  body { padding: 3rem 1.25rem 4.5rem; font-size: 15.5px; }
+  h1 { font-size: 1.45rem; }
+
+  .header-top { gap: 1.1rem; }
+  .portrait { width: 84px; height: 84px; }
+  .subtitle { margin-bottom: 1rem; }
+
+  .news li {
+    grid-template-columns: 1fr;
+    gap: 0.05rem;
+    padding: 0.5rem 0;
+  }
+
+  .entry {
+    flex-direction: column;
+    gap: 0.1rem;
+    padding-bottom: 1rem;
+  }
+
+  .entry-date { order: -1; }
+}
+
+/* ---------- print (e.g. "print to PDF" for a paper CV) ---------- */
+
+@media print {
+  body { padding: 0; background: #fff; color: #000; font-size: 11pt; }
+  a { color: #000; }
+  .links, .pub .links { display: none; }
+  section { margin-top: 1.5rem; break-inside: avoid; }
+}
